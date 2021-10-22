@@ -7,10 +7,39 @@ import {
   TouchableOpacity,
   ToastAndroid,
 } from 'react-native'
-export default function UserSignup() {
+import { ActivityIndicator } from 'react-native-paper'
+import { auth } from '../firebase'
+export default function UserSignup({ navigation }) {
   const [name, onchangename] = useState('')
   const [password, onchangepassword] = useState('')
+  const [confirmpassword, onchangeconfirmpassword] = useState('')
   const [email, onChangeemail] = useState('')
+
+  const handleSignup = () => {
+    if (
+      email === '' ||
+      password === '' ||
+      name === '' ||
+      confirmpassword === ''
+    ) {
+      alert('fill the filled properly')
+    } else {
+      if (password === confirmpassword) {
+        auth
+          .createUserWithEmailAndPassword(email, password)
+          .then((userCredentials) => {
+            const user = userCredentials.user
+            ToastAndroid.show(' Signup successful', ToastAndroid.SHORT)
+            navigation.navigate('signin')
+          })
+          .catch((e) => {
+            alert(e.message)
+          })
+      } else {
+        alert('password does not match please type correct password')
+      }
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -42,16 +71,16 @@ export default function UserSignup() {
       <TextInput
         style={styles.inputBox}
         secureTextEntry={true}
-        onChangeText={onchangepassword}
+        onChangeText={onchangeconfirmpassword}
         placeholder="Confirm password"
       />
 
-      <TouchableOpacity style={styles.btnbox} onPress={() => {}}>
+      <TouchableOpacity style={styles.btnbox} onPress={handleSignup}>
         <Text style={styles.btntext}>Sign up</Text>
       </TouchableOpacity>
       <View style={styles.signupcont}>
         <Text>ALready have an account?</Text>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={() => navigation.navigate('signin')}>
           <Text style={{ color: 'blue' }}>Signin here</Text>
         </TouchableOpacity>
       </View>

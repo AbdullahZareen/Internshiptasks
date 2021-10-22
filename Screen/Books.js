@@ -19,6 +19,7 @@ import {
 import { StatusBar } from 'expo-status-bar'
 import { Ionicons } from '@expo/vector-icons'
 import axios from 'axios'
+import { TouchableOpacity, View } from 'react-native'
 export default function Books({ navigation }) {
   const Carddata = () => {
     const [booksdata, setbooksdata] = React.useState()
@@ -59,7 +60,13 @@ export default function Books({ navigation }) {
     }, [])
 
     if (Loading === true)
-      return <ActivityIndicator size="large" alignSelf="center" />
+      return (
+        <View
+          style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}
+        >
+          <ActivityIndicator size="large" alignSelf="center" />
+        </View>
+      )
     return (
       <Box
         w={{
@@ -82,17 +89,17 @@ export default function Books({ navigation }) {
           }
           renderItem={({ item }) => (
             <Box
-              borderBottomWidth="1"
+              borderBottomWidth="2"
               _dark={{
                 borderColor: 'gray.600',
               }}
-              borderColor="coolGray.200"
+              borderColor="coolGray.500"
               pl="4"
               pr="5"
               py="2"
             >
               <HStack space={3} justifyContent="space-between">
-                <Pressable
+                <TouchableOpacity
                   onPress={() =>
                     navigation.navigate('BookDetail', { paramkey: item })
                   }
@@ -104,38 +111,41 @@ export default function Books({ navigation }) {
                       uri: item.book_image,
                     }}
                     alt={'Alternate Text ' + 'sm'}
+                    resizeMode={'contain'}
                   />
-                </Pressable>
+                </TouchableOpacity>
                 <VStack>
-                  <Text
-                    _dark={{
-                      color: 'warmGray.50',
-                    }}
-                    color="coolGray.800"
-                    bold
-                  >
-                    Title: {item.title}
-                  </Text>
-                  <Text
-                    color="coolGray.600"
-                    _dark={{
-                      color: 'warmGray.200',
-                    }}
-                  >
-                    Author:{item.author}
-                  </Text>
+                  <HStack>
+                    <Text bold>TITLE:</Text>
+                    <Text
+                      _dark={{
+                        color: 'warmGray.50',
+                      }}
+                      color="coolGray.800"
+                      bold
+                      isTruncated
+                      maxW="200"
+                    >
+                      {item.title}
+                    </Text>
+                  </HStack>
+
+                  <HStack>
+                    <Text mt={'2'} bold>
+                      Author:
+                    </Text>
+                    <Text
+                      mt={'2'}
+                      color="coolGray.600"
+                      _dark={{
+                        color: 'warmGray.200',
+                      }}
+                    >
+                      {item.author}
+                    </Text>
+                  </HStack>
                 </VStack>
                 <Spacer />
-                <Text
-                  fontSize="xs"
-                  _dark={{
-                    color: 'warmGray.50',
-                  }}
-                  color="coolGray.800"
-                  alignSelf="flex-start"
-                >
-                  View
-                </Text>
               </HStack>
             </Box>
           )}

@@ -9,10 +9,23 @@ import {
   ToastAndroid,
   ScrollView,
 } from 'react-native'
-export default function Login() {
+import { auth } from '../firebase'
+export default function Login({ navigation }) {
   const [email, onChangeemail] = useState('')
   const [password, onChangePassword] = useState('')
-
+  const handleSignin = () => {
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((userCredentials) => {
+        console.log('-------------------------------------------------------')
+        const user = userCredentials.user
+        console.log(user.email)
+        navigation.navigate('Books')
+      })
+      .catch((e) => {
+        alert(e.message)
+      })
+  }
   return (
     <View style={styles.container}>
       <View>
@@ -38,7 +51,7 @@ export default function Login() {
           secureTextEntry={true}
         />
 
-        <TouchableOpacity style={styles.btnbox} onPress={() => {}}>
+        <TouchableOpacity style={styles.btnbox} onPress={handleSignin}>
           <Text style={styles.btntext}>Login</Text>
         </TouchableOpacity>
       </View>
@@ -49,7 +62,7 @@ export default function Login() {
       </View>
       <View style={styles.signupcont}>
         <Text>Don't have and account yet? </Text>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={() => navigation.navigate('signup')}>
           <Text style={{ color: 'blue' }}>Signup</Text>
         </TouchableOpacity>
       </View>

@@ -26,7 +26,6 @@ export default function BookDetail({ route }) {
         overflow="hidden"
         shadow={1}
         _light={{ backgroundColor: 'gray.50' }}
-        _dark={{ backgroundColor: 'gray.700' }}
       >
         <Box
           w={{

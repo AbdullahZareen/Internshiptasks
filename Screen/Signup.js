@@ -30,7 +30,7 @@ export default function UserSignup({ navigation }) {
           .then((userCredentials) => {
             const user = userCredentials.user
             ToastAndroid.show(' Signup successful', ToastAndroid.SHORT)
-            navigation.navigate('signin')
+            navigation.navigate('signupanimation')
           })
           .catch((e) => {
             alert(e.message)

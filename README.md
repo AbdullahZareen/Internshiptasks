@@ -1,4 +1,4 @@
-# Internshiptas
+# Internshiptask
 
 #File Structure:
            Screen folder contain all screen present in app

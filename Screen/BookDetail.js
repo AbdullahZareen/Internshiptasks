@@ -14,11 +14,19 @@ import {
   Link,
   ScrollView,
 } from 'native-base'
-import { MaterialIcons, Ionicons } from '@expo/vector-icons'
+import { TouchableOpacity } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import * as actionCreators from '../state/action-creator/index'
+import { bindActionCreators } from 'redux'
 
 export default function BookDetail({ route }) {
   const book = route.params.paramkey
-  console.log(book)
+  const state = useSelector((state) => state.cart)
+  console.log(
+    'cart----------------------------------------------------------------------------------------------------------------------------------',
+    state.length
+  )
+  const { Addbook } = bindActionCreators(actionCreators, useDispatch())
   const Carddata = () => {
     return (
       <Box
@@ -118,6 +126,16 @@ export default function BookDetail({ route }) {
               <Text color="gray.500" fontWeight="400"></Text>
             </HStack>
           </HStack>
+          <TouchableOpacity onPress={() => Addbook(book)}>
+            <Text
+              fontSize="xl"
+              bold
+              color="coolGray.800"
+              alignSelf="flex-start"
+            >
+              Add to Cart
+            </Text>
+          </TouchableOpacity>
         </Stack>
       </Box>
     )

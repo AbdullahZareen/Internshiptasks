@@ -28,5 +28,7 @@ Login account :
 	email--Abdullahzareen90@gmail.com,password--123456 
 	other wise go to sign up and make your account 
 	if you want to see detail of book then click the image 
+	click add to cart at the end of the detail screen the book add in the cart 
+	
 
      

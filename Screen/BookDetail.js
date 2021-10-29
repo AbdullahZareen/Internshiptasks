@@ -14,18 +14,14 @@ import {
   Link,
   ScrollView,
 } from 'native-base'
-import { TouchableOpacity } from 'react-native'
+import { ToastAndroid, TouchableOpacity } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import * as actionCreators from '../state/action-creator/index'
 import { bindActionCreators } from 'redux'
 
-export default function BookDetail({ route }) {
+export default function BookDetail({ route, navigation }) {
+  const cart = useSelector((state) => state.cart)
   const book = route.params.paramkey
-  const state = useSelector((state) => state.cart)
-  console.log(
-    'cart----------------------------------------------------------------------------------------------------------------------------------',
-    state.length
-  )
   const { Addbook } = bindActionCreators(actionCreators, useDispatch())
   const Carddata = () => {
     return (
@@ -126,16 +122,33 @@ export default function BookDetail({ route }) {
               <Text color="gray.500" fontWeight="400"></Text>
             </HStack>
           </HStack>
-          <TouchableOpacity onPress={() => Addbook(book)}>
+          <TouchableOpacity
+            style={{ backgroundColor: '#1c313a', borderRadius: 25 }}
+            onPress={() => {
+              for (let i = 0; i < cart.length; i++) {
+                if (cart[i].title === book.title) {
+                  alert('Book already exist in cart')
+                  return
+                }
+              }
+              Addbook(book)
+              ToastAndroid.show('book added in cart', ToastAndroid.LONG)
+            }}
+          >
+            <Text fontSize="xl" bold color="white" alignSelf="center">
+              Add to Cart
+            </Text>
+          </TouchableOpacity>
+          {/* <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
             <Text
               fontSize="xl"
               bold
               color="coolGray.800"
               alignSelf="flex-start"
             >
-              Add to Cart
+              VIew cart
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </Stack>
       </Box>
     )

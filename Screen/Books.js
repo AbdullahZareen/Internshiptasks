@@ -17,7 +17,6 @@ import {
   Pressable,
 } from 'native-base'
 import { StatusBar } from 'expo-status-bar'
-import { Ionicons } from '@expo/vector-icons'
 import axios from 'axios'
 import { TouchableOpacity, View } from 'react-native'
 
@@ -75,10 +74,7 @@ export default function Books({ navigation }) {
           md: '25%',
         }}
       >
-        <Box mt={4}></Box>
-        <Heading fontSize="4xl" p="4" pb="3" alignSelf="center">
-          Books
-        </Heading>
+        <Box></Box>
         <Searchbar
           placeholder="Search"
           onChangeText={searchbook}

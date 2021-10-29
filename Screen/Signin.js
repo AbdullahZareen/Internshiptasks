@@ -11,15 +11,13 @@ import {
 } from 'react-native'
 import { auth } from '../firebase'
 export default function Login({ navigation }) {
-  const [email, onChangeemail] = useState('')
-  const [password, onChangePassword] = useState('')
+  const [email, onChangeemail] = useState('Abdullahzareen90@gmail.com')
+  const [password, onChangePassword] = useState('123456')
   const handleSignin = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userCredentials) => {
-        console.log('-------------------------------------------------------')
         const user = userCredentials.user
-        console.log(user.email)
         navigation.navigate('Books')
       })
       .catch((e) => {

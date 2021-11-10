@@ -25,7 +25,7 @@
 			*  action_creators
 			*  reducers
       
-## Screen detail :
+## Screen Detail :
 
 	- Books.js shows all the book 
 	- BookDetail.js shows the detail of book which was pressed 
@@ -36,7 +36,7 @@
 	
 
 
-## Login account :
+## Login Account :
 	
 	- email--Abdullahzareen90@gmail.com,password--123456 
 	- other wise go to sign up and make your account 

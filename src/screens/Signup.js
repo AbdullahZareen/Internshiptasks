@@ -6,6 +6,8 @@ import {
   TextInput,
   TouchableOpacity,
   ToastAndroid,
+  Image,
+  KeyboardAvoidingView,
 } from 'react-native'
 import { ActivityIndicator } from 'react-native-paper'
 import { auth } from '../firebase'
@@ -42,59 +44,62 @@ export default function UserSignup({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={{ bottom: 70, alignItems: 'center' }}>
-        <Text style={{ fontSize: 22, fontWeight: 'bold', top: 30 }}>
-          Sign up
-        </Text>
-      </View>
-      {/* <Text style={styles.setText}>User name</Text> */}
-      <TextInput
-        style={styles.inputBox}
-        onChangeText={onchangename}
-        placeholder="User name"
-      />
-      {/* <Text style={styles.setText}>Email</Text> */}
-      <TextInput
-        style={styles.inputBox}
-        onChangeText={onChangeemail}
-        placeholder="Email"
-      />
-      {/* <Text style={styles.setText}>Password</Text> */}
-      <TextInput
-        style={styles.inputBox}
-        secureTextEntry={true}
-        onChangeText={onchangepassword}
-        placeholder="Password"
-      />
-      {/* <Text style={styles.setText}>confirm Password</Text> */}
-      <TextInput
-        style={styles.inputBox}
-        secureTextEntry={true}
-        onChangeText={onchangeconfirmpassword}
-        placeholder="Confirm password"
-      />
+    <KeyboardAvoidingView>
+      <View style={styles.container}>
+        <View style={{ alignItems: 'center' }}>
+          <Text style={{ fontSize: 22, fontWeight: 'bold', top: 100 }}>
+            Sign up
+          </Text>
+        </View>
+        {/* <Text style={styles.setText}>User name</Text> */}
+        <Image style={styles.logo} source={require('../images/booklogo.jpg')} />
 
-      <TouchableOpacity style={styles.btnbox} onPress={handleSignup}>
-        <Text style={styles.btntext}>Sign up</Text>
-      </TouchableOpacity>
-      <View style={styles.signupcont}>
-        <Text>ALready have an account?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('signin')}>
-          <Text style={{ color: 'blue' }}>Signin here</Text>
+        <TextInput
+          style={styles.inputBox}
+          onChangeText={onchangename}
+          placeholder="User name"
+        />
+        {/* <Text style={styles.setText}>Email</Text> */}
+        <TextInput
+          style={styles.inputBox}
+          onChangeText={onChangeemail}
+          placeholder="Email"
+        />
+        {/* <Text style={styles.setText}>Password</Text> */}
+        <TextInput
+          style={styles.inputBox}
+          secureTextEntry={true}
+          onChangeText={onchangepassword}
+          placeholder="Password"
+        />
+        {/* <Text style={styles.setText}>confirm Password</Text> */}
+        <TextInput
+          style={styles.inputBox}
+          secureTextEntry={true}
+          onChangeText={onchangeconfirmpassword}
+          placeholder="Confirm password"
+        />
+
+        <TouchableOpacity style={styles.btnbox} onPress={handleSignup}>
+          <Text style={styles.btntext}>Sign up</Text>
         </TouchableOpacity>
+        <View style={styles.signupcont}>
+          <Text>ALready have an account?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('signin')}>
+            <Text style={{ color: 'blue' }}>Signin here</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    margin: 5,
-    flexGrow: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
+    bottom: 40,
   },
   setText: {
     marginLeft: 10,
@@ -120,7 +125,7 @@ const styles = StyleSheet.create({
   },
   btnbox: {
     width: 350,
-    backgroundColor: '#1c313a',
+    backgroundColor: '#FFA500',
     borderRadius: 25,
     paddingVertical: 10,
     alignItems: 'center',
@@ -133,5 +138,11 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     paddingVertical: 10,
     justifyContent: 'center',
+  },
+  logo: {
+    width: 150,
+    height: 150,
+    marginBottom: 20,
+    marginTop: 100,
   },
 })

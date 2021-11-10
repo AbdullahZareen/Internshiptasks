@@ -276,7 +276,7 @@ export default function Cart() {
             style={[
               styles.centerElement,
               {
-                backgroundColor: '#1c313a',
+                backgroundColor: '#FFA500',
                 width: 100,
                 height: 25,
                 borderRadius: 5,

@@ -38,7 +38,7 @@ export default function CartComponent() {
             height: 30,
             width: 30,
             borderRadius: 15,
-            backgroundColor: 'rgba(95,197,123,0.8)',
+            backgroundColor: '#FFA500',
             right: 15,
             bottom: 15,
             alignItems: 'center',

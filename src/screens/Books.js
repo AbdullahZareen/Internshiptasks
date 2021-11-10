@@ -19,7 +19,6 @@ import {
 import { StatusBar } from 'expo-status-bar'
 import axios from 'axios'
 import { TouchableOpacity, View } from 'react-native'
-
 export default function Books({ navigation }) {
   const Carddata = () => {
     const [booksdata, setbooksdata] = React.useState()
@@ -64,7 +63,7 @@ export default function Books({ navigation }) {
         <View
           style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}
         >
-          <ActivityIndicator size="large" alignSelf="center" />
+          <ActivityIndicator size="large" alignSelf="center" color="#FFA500" />
         </View>
       )
     return (
@@ -79,28 +78,54 @@ export default function Books({ navigation }) {
           placeholder="Search"
           onChangeText={searchbook}
           value={text}
+          style={{ borderRadius: 25, margin: 10 }}
         />
         <FlatList
           data={
             textAndSearched.text === '' ? booksdata : textAndSearched.searched
           }
-          renderItem={({ item }) => (
-            <Box
-              borderBottomWidth="2"
-              _dark={{
-                borderColor: 'gray.600',
+          renderItem={({ item, index }) => (
+            <TouchableOpacity
+              onPress={() => {
+                if (index === 0) {
+                  navigation.navigate('BookDetail', {
+                    parambook: {
+                      books: [booksdata[index], booksdata[index + 1]],
+                      index: 0,
+                    },
+                  })
+                } else if (index === booksdata.length - 1) {
+                  navigation.navigate('BookDetail', {
+                    parambook: {
+                      books: [booksdata[index - 1], booksdata[index]],
+                      index: 1,
+                    },
+                  })
+                } else {
+                  navigation.navigate('BookDetail', {
+                    parambook: {
+                      books: [
+                        booksdata[index - 1],
+                        booksdata[index],
+                        booksdata[index + 1],
+                      ],
+                      index: 1,
+                    },
+                  })
+                }
               }}
-              borderColor="coolGray.500"
-              pl="4"
-              pr="5"
-              py="2"
             >
-              <HStack space={3} justifyContent="space-between">
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate('BookDetail', { paramkey: item })
-                  }
-                >
+              <Box
+                borderBottomWidth="2"
+                _dark={{
+                  borderColor: 'gray.600',
+                }}
+                borderColor="coolGray.300"
+                pl="4"
+                pr="5"
+                py="2"
+              >
+                <HStack space={3} justifyContent="space-between">
                   <Image
                     size={'md'}
                     resizeMode="cover"
@@ -110,41 +135,34 @@ export default function Books({ navigation }) {
                     alt={'Alternate Text ' + 'sm'}
                     resizeMode={'contain'}
                   />
-                </TouchableOpacity>
-                <VStack>
-                  <HStack>
-                    <Text bold>TITLE:</Text>
-                    <Text
-                      _dark={{
-                        color: 'warmGray.50',
-                      }}
-                      color="coolGray.800"
-                      bold
-                      isTruncated
-                      maxW="200"
-                    >
-                      {item.title}
-                    </Text>
-                  </HStack>
+                  <VStack>
+                    <HStack>
+                      <Text
+                        _dark={{
+                          color: 'warmGray.50',
+                        }}
+                        color="coolGray.800"
+                        bold
+                        isTruncated
+                        maxW="200"
+                      >
+                        {item.title}
+                      </Text>
+                    </HStack>
 
-                  <HStack>
-                    <Text mt={'2'} bold>
-                      Author:
-                    </Text>
-                    <Text
-                      mt={'2'}
-                      color="coolGray.600"
-                      _dark={{
-                        color: 'warmGray.200',
-                      }}
-                    >
-                      {item.author}
-                    </Text>
-                  </HStack>
-                </VStack>
-                <Spacer />
-              </HStack>
-            </Box>
+                    <HStack>
+                      <Text mt={'2'} bold>
+                        Author:
+                      </Text>
+                      <Text mt={'2'} color="coolGray.800" maxWidth="200">
+                        {item.author}
+                      </Text>
+                    </HStack>
+                  </VStack>
+                  <Spacer />
+                </HStack>
+              </Box>
+            </TouchableOpacity>
           )}
           keyExtractor={(item, index) => index.toString()}
         />

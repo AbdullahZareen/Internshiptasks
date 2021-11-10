@@ -6,8 +6,6 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
-  ToastAndroid,
-  ScrollView,
 } from 'react-native'
 import { auth } from '../firebase'
 export default function Login({ navigation }) {
@@ -31,7 +29,7 @@ export default function Login({ navigation }) {
           Sign in
         </Text>
       </View>
-      <Image style={styles.logo} source={require('../images/login.png')} />
+      <Image style={styles.logo} source={require('../images/booklogo.jpg')} />
       <View style={styles.container1}>
         {/* <Text style={styles.setText}>Email</Text> */}
         <TextInput
@@ -115,7 +113,7 @@ const styles = StyleSheet.create({
   },
   btnbox: {
     width: 350,
-    backgroundColor: '#1c313a',
+    backgroundColor: '#FFA500',
     borderRadius: 25,
     paddingVertical: 10,
     marginBottom: -70,

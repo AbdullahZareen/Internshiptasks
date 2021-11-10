@@ -3,7 +3,7 @@
 #File Structure:
            
 	--Screen folder contain all screen present in app
-          --images folder contain all image and json animation 
+        --images folder contain all image and json animation 
 
 #Screen detai:
 

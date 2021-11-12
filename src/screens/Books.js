@@ -11,15 +11,23 @@ import {
   Spacer,
   Center,
   NativeBaseProvider,
-  Image,
   Input,
   Icon,
   Pressable,
 } from 'native-base'
 import { StatusBar } from 'expo-status-bar'
 import axios from 'axios'
-import { TouchableOpacity, View } from 'react-native'
+import {
+  TouchableOpacity,
+  View,
+  Image,
+  useWindowDimensions,
+  Dimensions,
+} from 'react-native'
+
 export default function Books({ navigation }) {
+  const dimension = Dimensions.get('window')
+  console.log(dimension)
   const Carddata = () => {
     const [booksdata, setbooksdata] = React.useState()
     const [text, settext] = React.useState()
@@ -125,17 +133,20 @@ export default function Books({ navigation }) {
                 pr="5"
                 py="2"
               >
-                <HStack space={3} justifyContent="space-between">
+                <HStack space={8} justifyContent="space-between">
                   <Image
-                    size={'md'}
-                    resizeMode="cover"
                     source={{
                       uri: item.book_image,
                     }}
-                    alt={'Alternate Text ' + 'sm'}
+                    style={{
+                      width: 70,
+                      height: 100,
+                      marginTop: 4,
+                      marginLeft: 10,
+                    }}
                     resizeMode={'contain'}
                   />
-                  <VStack>
+                  <VStack mt="5">
                     <HStack>
                       <Text
                         _dark={{
@@ -165,6 +176,7 @@ export default function Books({ navigation }) {
             </TouchableOpacity>
           )}
           keyExtractor={(item, index) => index.toString()}
+          contentContainerStyle={{ paddingBottom: 70 }}
         />
       </Box>
     )

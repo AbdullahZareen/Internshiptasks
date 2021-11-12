@@ -32,7 +32,7 @@ const wait = (timeout) => {
 }
 export default function Cart() {
   const [refreshing, setRefreshing] = React.useState(false)
-  const qty = 1
+  const [qty, setqty] = useState(1)
   const cart = useSelector((state) => state.cart)
   const { emptyCart, Deleteindex } = bindActionCreators(
     actionCreators,
@@ -43,18 +43,20 @@ export default function Cart() {
 
     wait(0).then(() => setRefreshing(false))
   }, [])
-  const data = [
-    {
-      age_group: '',
-      amazon_product_url:
-        'https://www.amazon.com/dp/1250220254?tag=NYTBSREV-20',
-      author: 'Liane Moriarty',
-      book_image:
-        'https://storage.googleapis.com/du-prd/books/images/9781250220257.jpg',
-
-      book_uri: 'nyt://book/49a3b4e2-4c03-5363-be9f-b3f5e80ddc6a',
-    },
-  ]
+  if (cart.length == 0) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'white',
+        }}
+      >
+        <Image source={require('../images/empytcartimage.png')} />
+      </View>
+    )
+  }
   function tabledata(item, index) {
     return (
       <View style={{ flex: 1, backgroundColor: '#f6f6f6' }}>
@@ -120,10 +122,16 @@ export default function Cart() {
                 </Text>
                 <View style={{ flexDirection: 'row' }}>
                   <TouchableOpacity
-                    onPress={() => {}}
+                    onPress={() => {
+                      setqty(qty - 1)
+                      if (qty === 1) {
+                        setqty(1)
+                      }
+                      onRefresh()
+                    }}
                     style={{ borderWidth: 1, borderColor: '#cccccc' }}
                   >
-                    <MaterialIcons name="remove" size={22} color="#cccccc" />
+                    <MaterialIcons name="remove" size={30} color="#cccccc" />
                   </TouchableOpacity>
                   <Text
                     style={{
@@ -133,16 +141,19 @@ export default function Cart() {
                       paddingHorizontal: 7,
                       paddingTop: 3,
                       color: '#bbbbbb',
-                      fontSize: 13,
+                      fontSize: 18,
                     }}
                   >
                     {qty}
                   </Text>
                   <TouchableOpacity
-                    onPress={() => {}}
+                    onPress={() => {
+                      setqty(qty + 1)
+                      onRefresh()
+                    }}
                     style={{ borderWidth: 1, borderColor: '#cccccc' }}
                   >
-                    <MaterialIcons name="add" size={22} color="#cccccc" />
+                    <MaterialIcons name="add" size={30} color="#cccccc" />
                   </TouchableOpacity>
                 </View>
               </View>
